@@ -75,13 +75,9 @@ networks:
     ipam:
       config:
         - subnet: "172.18.0.0/16"
-    external:
-      name: front_ntwk
   back-tier:
     driver_opts:
       com.docker.network.bridge.enable_ip_masquerade: 'true'
     ipam:
       config:
         - subnet: "172.19.0.0/16"
-    external:
-      name: back_ntwk
