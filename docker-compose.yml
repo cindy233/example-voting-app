@@ -5,6 +5,7 @@ services:
     privileged: true
     build: ./vote
     command: python app.py
+    container_name: vote
     volumes:
      - ./vote:/app
     ports:
@@ -17,6 +18,7 @@ services:
     privileged: true
     build: ./result
     command: nodemon server.js
+    container_name: result
     volumes:
       - ./result:/app
     ports:
@@ -29,6 +31,7 @@ services:
   joomla:
     privileged: true
     image: kuthz/joomla
+    container_name: joomla
     ports:
       - "80:80"
     networks:
@@ -37,6 +40,7 @@ services:
 
   worker:
     privileged: true
+    container_name: worker
     build:
       context: ./worker
     depends_on:
@@ -71,9 +75,13 @@ networks:
     ipam:
       config:
         - subnet: "172.18.0.0/16"
+    external:
+      name: front_ntwk
   back-tier:
     driver_opts:
       com.docker.network.bridge.enable_ip_masquerade: 'true'
     ipam:
       config:
         - subnet: "172.19.0.0/16"
+    external:
+      name: back_ntwk
